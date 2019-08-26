@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace Lottery {
     public class DrawnNumberEventArgs : EventArgs {
-        public int DrawnNumber { get; private set; }
+        public List<int> DrawnNumbers { get; private set; }
         
-        public DrawnNumberEventArgs(int value) {
-            this.DrawnNumber = value;
+        public DrawnNumberEventArgs(List<int> values) {
+            this.DrawnNumbers = values;
         }
     }
 
@@ -16,9 +17,18 @@ namespace Lottery {
         public int Values { get; private set; }
 
         public Lottery(int values, int minValue, int maxValue) {
+            if (minValue > maxValue)
+                throw new ArgumentException("Valor mínimo no puede ser mayor al valor máximo.");
+
+            if (minValue < 1 || maxValue < 1)
+                throw new ArgumentException("El rango válido no puede incluir números negativos.");
+
+            if (values > (maxValue - minValue))
+                throw new ArgumentException("El rango es menor a la cantidad de números a escoger por sorteo.");
+
             this.MinValue = minValue;
             this.MaxValue = maxValue;
-            this.Values = Values;
+            this.Values = values;
         }
 
         public void AddPlayer(Player player) {
@@ -26,9 +36,16 @@ namespace Lottery {
         }
 
         public void Draw() {
-            int value = new Random().Next(this.MinValue, this.MaxValue);
-            Console.WriteLine($"Soy la loteria y elegí el número {value}.");
-            this.DrawNumberEventHandler(this, new DrawnNumberEventArgs(value));
+            List<int> values = Utilities.CreateBet(this.Values, this.MinValue, this.MaxValue);
+
+            if (this.Values == 1) {
+                Console.WriteLine($"Soy la lotería y elegí el número {values[0]}.");
+            }
+            else {
+                Console.WriteLine($"Soy la lotería y elegí los números {values.PrintValues()}.");
+            }
+
+            this.DrawNumberEventHandler(this, new DrawnNumberEventArgs(values));
         }
     }
 }
