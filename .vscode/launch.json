@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/190827ParImparLambda/bin/Debug/netcoreapp2.2/190827ParImparLambda.dll",
+            "program": "${workspaceFolder}/190829Validador/Application/bin/Debug/netcoreapp2.2/Application.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/190827ParImparLambda",
+            "cwd": "${workspaceFolder}/190829Validador/Application",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
