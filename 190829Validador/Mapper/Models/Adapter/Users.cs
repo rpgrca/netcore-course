@@ -6,6 +6,10 @@ namespace Mapper.Models.Adapter
     {
         private Json.Users _Users;
 
+        public Users() {
+            _Users = new Json.Users();
+        }
+
         internal Users(Json.Users users) {
             _Users = users;
         }
