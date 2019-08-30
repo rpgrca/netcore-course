@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 
 namespace Mapper.Models.Json {
-   public partial class Address
+    public partial class Address
     {
         [JsonProperty("street")]
         public string Street { get; set; }
@@ -19,5 +19,4 @@ namespace Mapper.Models.Json {
         [JsonProperty("geo")]
         public Geo Geo { get; set; }
     }
-
 }
