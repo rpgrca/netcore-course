@@ -26,14 +26,18 @@ namespace Consumer
             _RestRequest = new RestSharp.RestRequest(controller, (RestSharp.Method)method);
         }
 
-        public Request AddParameter(string parameter, string value)
+        public Request AddParameter(string parameter, string value, bool urlSegment = false)
         {
             switch (_Method)
             {
                 case Method.Post: _RestRequest.AddParameter(parameter, value, ParameterType.QueryString);
                     break;
 
-                case Method.Get: _RestRequest.AddQueryParameter(parameter, value);
+                case Method.Get:
+                    if (urlSegment)
+                        _RestRequest.AddUrlSegment(parameter, value);
+                    else
+                        _RestRequest.AddQueryParameter(parameter, value);
                     break;
             }
 
