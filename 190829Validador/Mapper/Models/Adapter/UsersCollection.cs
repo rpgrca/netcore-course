@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Mapper.Models.Adapter
 {
-    public partial class UsersCollection : IEnumerable<Adapter.Users>
+    public partial class UsersCollection : List<Adapter.Users>, IEnumerable<Adapter.Users>
     {
         public class UsersCollectionEnumerator : IEnumerator<Adapter.Users>
         {
-            private IEnumerator<List<Models.Json.Users>> InternalEnumerator { get; set; }
+            private IEnumerator<Models.Json.Users> InternalEnumerator { get; set; }
 
-            internal UsersCollectionEnumerator(IEnumerator<List<Models.Json.Users>> usersCollection)
+            internal UsersCollectionEnumerator(IEnumerator<Models.Json.Users> usersCollection)
             {
                 this.InternalEnumerator = usersCollection;
             }
@@ -62,5 +63,18 @@ namespace Mapper.Models.Adapter
             _UsersCollection = usersCollection;
         }
 
+        public UsersCollection() {
+            _UsersCollection = new List<Json.Users>();
+        }
+
+        // public IEnumerator<Users> GetEnumerator()
+        // {
+        //     return new UsersCollectionEnumerator(_UsersCollection.GetEnumerator());
+        // }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new UsersCollectionEnumerator(_UsersCollection.GetEnumerator());
+        }
     }
 }
