@@ -9,6 +9,10 @@ namespace Mapper.Models.Adapter {
             _Geo = geo;
         }
 
+        internal Geo() {
+            _Geo = new Json.Geo();
+        }
+
         internal void CopyTo(Json.Geo geo) {
             geo.Lat = _Geo.Lat;
             geo.Lng = _Geo.Lng;
