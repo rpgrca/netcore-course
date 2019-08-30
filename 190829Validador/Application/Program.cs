@@ -8,7 +8,7 @@ namespace Application
 {
     class Program
     {
-        private const int TEST_COUNT = 7;
+        private const int TEST_COUNT = 5;
 
         /// <summary>
         /// Queries for TEST_COUNT lists of users forcing await for each request.
