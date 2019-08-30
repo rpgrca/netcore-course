@@ -16,6 +16,16 @@ namespace Consumer
                 .UseSerializer(() => new JsonNetSerializer());
         }
 
+        public T Execute<T>(Request request) where T : new() {
+            var response = _RestClient.Execute<T>(request.Build());
+
+            if (! response.IsSuccessful) {
+                throw new InvalidOperationException($"Bad response! {response.StatusDescription} (code: {response.StatusCode}).", response.ErrorException);
+            }
+
+            return response.Data;
+        }
+
         public async Task<T> ExecuteAsync<T>(Request request) where T : new()
         {
             var taskCompletionSource = new TaskCompletionSource<T>();
@@ -40,11 +50,5 @@ namespace Consumer
 
             return await taskCompletionSource.Task.ConfigureAwait(false);
         }
-
-        /*
-        public async Task<T> ExecuteAsync<T>(Request request) where T : new()
-        {
-            return await _RestClient.ExecuteTaskAsync<T>(request.Build());
-        }*/
     }
 }
