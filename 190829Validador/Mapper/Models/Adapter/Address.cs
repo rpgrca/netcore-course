@@ -9,6 +9,10 @@ namespace Mapper.Models.Adapter {
             _Address = address;
         }
 
+        internal Address() {
+            _Address = new Json.Address();
+        }
+
         internal void CopyTo(Json.Address address) {
             address.City = _Address.City;
             address.Street = _Address.Street;
