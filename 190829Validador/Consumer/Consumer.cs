@@ -9,12 +9,14 @@ namespace Consumer
         private readonly System.Uri _BaseUrl;
         private readonly IRestClient _RestClient;
 
+        #region Constructors
         public Consumer(Uri baseUrl)
         {
             _BaseUrl = baseUrl;
             _RestClient = new RestClient(_BaseUrl)
                 .UseSerializer(() => new JsonNetSerializer());
         }
+        #endregion
 
         public T Execute<T>(Request request) where T : new() {
             var response = _RestClient.Execute<T>(request.Build());
